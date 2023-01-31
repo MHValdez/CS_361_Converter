@@ -8,11 +8,15 @@ function HomePage() {
     return (
         <>
             <p>
-                Welcome to this <strong>Unit Converter</strong> program.
+                Welcome to this <strong>Unit Converter</strong>.
             </p>
             <p>
-                Use the navigation bar above to learn about the major <strong>Measurement Systems</strong> in use today or select<br></br>
-                a <strong>Quantity to Convert</strong> (type of thing being measured) and <strong> GO</strong> to the converter for that quantity.
+                To get started converting immediately, use the navigation bar above to select a <strong>Quantity to Convert</strong><br></br>
+                (type of thing being measured) and click <strong> GO</strong> to go to the converter for that quantity.
+            </p>
+            <p>
+                To learn more about <strong>Measurement Systems</strong> in use today, or select <strong>About Measurement Systems</strong>.<br></br>
+                
             </p>
             <p>
                 Select <strong>Home</strong> on any page to return this screen.<br></br>
