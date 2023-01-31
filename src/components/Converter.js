@@ -73,7 +73,7 @@ function Converter({ quantity }) {
     return (
         <form onSubmit={handleSubmit}>
 
-            <label>Amount:
+            <label>Magnitude:
                 <input
                     type='number'
                     min={0}
@@ -100,6 +100,11 @@ function Converter({ quantity }) {
             <input type="submit" value="Convert!"></input>
 
             <br></br><br></br>
+
+            <p>
+                The below informational buttons do not navigate away from this page.<br></br>
+                A closable overlay will be displayed.
+            </p>
 
             <input type="button" value="About Selected Units" onClick={showUnitInfo}></input>
 
