@@ -155,7 +155,7 @@ export const units = [
                 "about_unit":
                 "The modern kilogram is defined as a function of the Planck constant where the constant is 6.626070150*10^-34 kg*m^2/s."
             },
-            "tonne": {
+            "tonnes": {
                 "system": ["NA"],
                 "abbreviation": ["t", "MT"],
                 "about_unit":
