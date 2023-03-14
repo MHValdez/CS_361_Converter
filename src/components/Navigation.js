@@ -1,10 +1,9 @@
 // Import Dependencies
 import React from 'react';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // Import Components
-import Dropdown from './Dropdown';
 import '../App.css';
 
 // Import Data
@@ -12,7 +11,6 @@ import { units } from "./Units";
 
 
 function Navigation() {
-  let navigate = useNavigate();
   const quantities = Object.keys(units[0]);
   const paths = quantities.map((path) =>
         <option value={ path }>{ path }</option>
