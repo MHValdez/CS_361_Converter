@@ -1,103 +1,100 @@
 // Import Dependencies
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
+// Import Components
 import Dropdown from '../components/Dropdown';
-
 import { units } from "../components/Units";
 
 function sigFigs(magnitude) {
-    const input_length = magnitude.length;
+    //** This function considers trailing zeroes 
+    //   of whole numbers to be significant */
+    const input = magnitude.toString();
+    const input_length = input.length;
     let sig_figs = input_length;
+    let leading_whole = 0;          // Leading zeroes in whole part of number
+    let leading_dec = 0;            // Leading zeroes in decimal part of number
 
-    let leading_zeroes = false;
-    let trailing_zeroes = false;
-    let decimal = false;
 
-    let num_leading = 0;
-    let num_trailing = 0;
+    // Catch leading zeroes
+    while (input[leading_whole] == '0') {
+        leading_whole++;
+    }
 
-    let i = 0;
+    if (leading_whole > 0 && input[leading_whole] == '.') {
+        // Catch leading zeroes after decimal
+        const start = leading_whole + 1;
 
-    if (magnitude[0] == '0') {
-        leading_zeroes = true;
-    } 
-
-    while (leading_zeroes && i < input_length - 1) {
-        // Count leading zeroes
-        if (magnitude[i] == '0') {
-            sig_figs--;
-            num_leading++;
-            i++;
-        } else {
-            leading_zeroes = false;
+        while (input[start + leading_dec] == '0') {
+            leading_dec++;
         }
     }
 
-    while (i < input_length && decimal == false) {
-        // Check for decimals
-        if (magnitude[i] != '.') {
-            sig_figs--;
-            decimal = true;
-        }
-        i++;
+    sig_figs = sig_figs - leading_whole - leading_dec;
+
+    // Catch decimals
+    if (input.includes('.')) {
+        sig_figs--;
     }
-
-    i = input_length-1;
-
-    if (decimal == false && magnitude[i] == '0') {
-        trailing_zeroes = true;
-    }
-
-    while (trailing_zeroes && i > 0) {
-        // Count trailing zeroes for magnitudes without a decimal part
-        if (magnitude[i] == '0') {
-            sig_figs--;
-            num_trailing++;
-            i--;
-        } else {
-            trailing_zeroes = false;
-        }
-    }
-
-    return [sig_figs, num_leading, num_trailing];
+ 
+    return [sig_figs, leading_whole];
 }
 
 function formatInput(magnitude, leading_zeroes) {
     if (magnitude == '0') {
-        return magnitude
+        return magnitude;
     }
-    return magnitude.slice(leading_zeroes);
+    let formatted = magnitude.slice(leading_zeroes);
+
+    if (formatted[0] == '.') {
+        formatted = '0' + formatted;
+    }
+
+    return formatted;
 }
 
 function formatOutput(magnitude, sig_figs) {
     if (magnitude == '0') {
-        return magnitude
+        return magnitude;
     }
 
-    let formatted = magnitude.toString();
-    const in_length = formatted.length;
-    let out_length = sig_figs;
-    let decimal = undefined;
-    let i = 0;
+    const response = magnitude.toString();
+    let decimal = response.indexOf('.');
+    let formatted = response;
+    let digits = sig_figs;
 
+    if (formatted[0] == '0') {
+        // Leading zeroes are not significant
+        let i = 2;
+        digits++;
 
-    while (decimal == undefined && i < in_length) {
-        if (formatted[i] == '.') {
-            decimal = i;
+        while (formatted[i] == '0') {
+            digits++;
+            i++;
         }
-        i++;
     }
 
-    if (decimal != undefined && decimal < out_length) {
-        out_length++;
-    } else if (decimal > out_length) {
-        // Return all digits up to decimal
-        return formatted.slice(0, decimal);
+    if (decimal >= digits) {
+        // Show all digits of whole numbers regardless of signficance
+        formatted = Math.round(magnitude)
+    } else if (decimal > 0 && decimal < digits) {
+        let round_factor = 1;
+
+        for (let i = decimal; i < digits; i++) {
+            round_factor = round_factor * 10;
+        }
+
+        // Round to significant digit of decimal part
+        formatted = Math.round(magnitude * round_factor) / round_factor;
     }
 
-    // Return significant figures beyond decimal
-    return formatted.slice(0, out_length);
+    return formatted;
+}
+
+function formatFactor(factor) {
+    // Truncate displayed factor by magnitude of digits
+    const digits = 1000000000;
+    return Math.round(factor * digits) / digits;
 }
 
 function Converter({ quantity }) {
@@ -146,14 +143,17 @@ function Converter({ quantity }) {
             body: request
         }).then((response) => response.json()
         ).then((data) => {
+            console.log(`Response: {"magnitude"{${data.magnitude}}:,"factor":{${data.factor}}}`);
+
             const sig_input = formatInput(magnitude, leading_zeroes);
             const sig_output = formatOutput(data.magnitude, sig_figs);
-            const sig_factor = formatOutput(data.factor, sig_figs);
+            const sig_factor = formatFactor(data.factor);
 
             const result = `Result: ${sig_input} ${unit_from} = ${sig_output} ${unit_to}`;
             const factor = `\n\nConversion Factor: ${sig_factor}`;
 
             alert(result + factor);
+
         });
     }
 
@@ -189,6 +189,7 @@ function Converter({ quantity }) {
 
             <label>Magnitude:
                 <input
+                    class='field'
                     type='number'
                     min={0}
                     step='any'
@@ -200,13 +201,13 @@ function Converter({ quantity }) {
             </label>
 
             <label>Convert From:
-                <select value={unit_from} onChange={(e) => setUnitFrom(e.target.value)}>
+                <select class='dropdown' value={unit_from} onChange={(e) => setUnitFrom(e.target.value)}>
                     <Dropdown values={unit_select} />
                 </select>
             </label>
 
             <label>Convert To:
-                <select value={unit_to} onChange={(e) => setUnitTo(e.target.value)}>
+                <select class='dropdown' value={unit_to} onChange={(e) => setUnitTo(e.target.value)}>
                     <Dropdown values={unit_select} />
                 </select>
             </label>

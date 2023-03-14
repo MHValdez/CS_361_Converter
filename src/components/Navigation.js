@@ -25,7 +25,7 @@ function Navigation() {
         <Link to='/'>Home</Link>
         <Link to='/info'>About Measurement Systems</Link>
         <label class='dropdown'>Select Quantity to Convert:
-        <select value={selection} onChange={(e) => setSelection(e.target.value)}>
+        <select class='dropdown' value={selection} onChange={(e) => setSelection(e.target.value)}>
             {paths}
         </select>
         <Link to={`/${selection}`}>GO!</Link>

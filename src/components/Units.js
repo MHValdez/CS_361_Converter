@@ -25,13 +25,13 @@ export const units = [
                 "system": ["BI", "USC"],
                 "abbreviation": ["mi"],
                 "about_unit":
-                "The mile is defined as 5,280 feet."
+                "The mile is defined as 5280 feet."
             },
             "nautical miles": {
                 "system": ["NA"],
                 "abbreviation": ["M", "NM", "nmi", "m"],
                 "about_unit":
-                "The modern nuatical mile is defined as exactly 1.852 meters."
+                "The modern nuatical mile is defined as exactly 1852 meters."
             },
             "millimeters": {
                 "system": ["SI"],
@@ -74,7 +74,7 @@ export const units = [
                 "system": ["SI"],
                 "abbreviation": ["ms"],
                 "about_unit":
-                "The millisecond is defined as 1/1,000 of a second."
+                "The millisecond is defined as 1/1000 of a second."
             },
             "seconds": {
                 "system": ["SI"],

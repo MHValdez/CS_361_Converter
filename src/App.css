@@ -1,7 +1,3 @@
-/*  ===== MOBILE styles (inherited by all devices) ===== 
-/*  ===== See tablet, desktop, and print @media queries at the bottom.
-
-
 /*   ----- Imports  -----  */
 /*
 @font-face {                 Add fonts from the server ... 
@@ -11,14 +7,6 @@
 */
 /* ...or hosted services like Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;500;700&family=Poppins:wght@200&display=swap');
-
-/*@import '../node_modules/modern-normalize/modern-normalize.css';
-                            /* npm install modern-normalize 
-                              Resets elements for browser consistancy.  
-                              http://nicolasgallagher.com/about-normalize-css/ 
-                            */
-
-/* @import "component1.css";    Component-specific stylesheets, if any */
 
 
 /*   ----- Variables  -----  */
@@ -32,7 +20,8 @@
 }
 
 /*  ----- Viewport ----- elements inherited by all remaining elements ----- */
-body {                     /* Can alternatively define in html {} or :root {} */
+/* Can alternatively define in html {} or :root {} */
+body {                     
   color: var(--custom-gray);
   background-color: var(--custom-blue-med);
   border: 2px solid var(--custom-gray);
@@ -42,9 +31,6 @@ body {                     /* Can alternatively define in html {} or :root {} */
   margin: auto 0px;
   padding: 1%, 0;
 }
-
-/* ----- Anchors ----- Text links */
-/* None */
 
 /*  ----- Navigation ----- Override text links for navigation only.  */
 nav {
@@ -106,38 +92,13 @@ footer {
 }
 
 /*  -----  Typography  ----- */
+/* Define consistant font family.*/
 h1, h2, h3, h4, h5, h6 {
   color: var(--custom-blue-med);
   font-family: 'Poppins', sans-serif;
-} /* Define consistant font family.*/
+} 
 h1 {
   color: var(--custom-gray);
-}
-
-/*  ----- Coding or instructional typography ----- */
-/* None */
-
-/*  ----- Table ----- */
-table {
-  border-collapse: collapse;
-  margin: auto;
-  margin-bottom: 3%;
-  padding: 2%;
-  border: 1px solid var(--custom-gray);
-}
-tr td {
-  padding: 0.3em 0.5em;
-  border: 1px solid var(--custom-gray);
-  color: var(--custom-gray);
-}
-  tr:nth-child(even) {
-    background-color: var(--custom-blue-light);
-  }
-th {
-  background-color: var(--custom-blue-light);
-  color: var(--custom-gray);
-  padding: 0.3em 0.5em;
-  border: none;
 }
 
 /*  ----- Dropdown ----- */
@@ -146,11 +107,15 @@ th {
   color: var(--custom-gray);
   font-family: 'Hind Siliguri', sans-serif;
   font-weight: 300;
-  font-size: 1.5em;
+  font-size: 1em;
   margin: 1%;
   padding: 1%;
 }
 
+/*  ----- Dropdown ----- */
+.field {
+  font-size: 1em;
+}
 
 /*  ----- Form ----- */
 form {
@@ -206,18 +171,3 @@ label {
     ::placeholder {
       color: var(--custom-gray);
     }
-
-/* ----- Media ----- */
-/* None */
-
-/*  ----- Classes for alignment, positioning, widths, grids, embellishments, and animation -----  */
-/* None */
-
-/*   ===== TABLET  media query overrides mobile styles ===== */
-/* None */
-
-/*   ===== DESKTOP  media query overrides mobile and tablet styles ===== */
-/* None */
-
-/*   ===== PRINT  media query overrides previous styles =====  */
-/* None */
